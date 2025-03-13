@@ -33,41 +33,79 @@ numberButtons.forEach(button => {
     button.addEventListener('click', () => appendNumber(button.innerText));
 });
 
-function add(n1, n2) {
-    return (n1 + n2);
-}
+Object.keys(operatorButtons).forEach(op => {
+    operatorButtons[op].addEventListener('click', () => setOperator(op));
+});
 
-function multiply(n1, n2) {
-    return (n1 * n2);
-}
+equalsButton.addEventListener('click', evaluate);
+clearButton.addEventListener('click', clear);
+decimalButton.addEventListener('click', appendDecimal);
 
-function subtract(n1, n2) {
-    return (n1 - n2);
-}
-
-function divide(n1, n2) {
-    if(n2 != 0) {
-        return (n1 / n2);
+function appendNumber(number) {
+    if (shouldResetDisplay) {
+        resetDisplay();
     }
-    else {
-        return "Invalid numbers";
+    if (display.innerText === '0') {
+        display.innerText = number;
+    } else {
+        display.innerText += number;
     }
 }
 
-let userInput = prompt("Enter a number:");
-let n1 = parseInt(userInput);
+function appendDecimal() {
+    if (shouldResetDisplay) resetDisplay();
+    if (!display.innerText.includes('.')) {
+        display.innerText += '.';
+    }
+}
 
-userInput = prompt("Enter a number:");
-let n2 = parseInt(userInput);
+function setOperator(operator) {
+    if (currentOperator !== null) evaluate();
+    firstOperand = display.innerText;
+    currentOperator = operator;
+    shouldResetDisplay = true;
+}
 
-userInput = prompt("Enter operation(Add = 1 / Sub = 2 / Div = 3 / Mul = 4):");
-let n3 = parseInt(userInput);
+function evaluate() {
+    if (currentOperator === null || shouldResetDisplay) return;
+    if (currentOperator === 'divide' && display.innerText === '0') {
+        display.innerText = "Error";
+        currentOperator = null;
+        return;
+    }
 
-let result = 0;
+    secondOperand = display.innerText;
+    display.innerText = roundResult(operate(currentOperator, parseFloat(firstOperand), parseFloat(secondOperand)));
+    currentOperator = null;
+}
 
-if(n3 == 1) result = add(n1, n2);
-else if(n3 == 2) result = subtract(n1, n2);
-else if(n3 == 3) result = divide(n1, n2);
-else result = multiply(n1, n2);
+function operate(operator, a, b) {
+    switch (operator) {
+        case 'add':
+            return a + b;
+        case 'subtract':
+            return a - b;
+        case 'multiply':
+            return a * b;
+        case 'divide':
+            return b !== 0 ? a / b : 'Error';
+        default:
+            return b;
+    }
+}
 
-console.log(result);
+function roundResult(number) {
+    return Math.round(number * 1000) / 1000;
+}
+
+function resetDisplay() {
+    display.innerText = '';
+    shouldResetDisplay = false;
+}
+
+function clear() {
+    display.innerText = '0';
+    firstOperand = '';
+    secondOperand = '';
+    currentOperator = null;
+}
