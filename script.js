@@ -42,6 +42,9 @@ function clear() {
 }
 
 function appendNumber(number) {
+    if (display.innerText === "Invalid input") {
+        clear();
+    }
     if (shouldResetDisplay) {
         resetDisplay();
     }
