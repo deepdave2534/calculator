@@ -5,22 +5,42 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #fff1df;
+    margin: 0;
 }
 
 .container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-end; /* Aligns buttons to the right */
     width: 500px;
     height: 500px;
     border: 2px solid black;
+    background-color: #fff1df;
+    padding: 0;
+}
+
+.content {
     background-color: white;
-    margin-bottom: 20px;
-    justify-content: center;
+    height: 100px;
+    width: 100%;
+    border-bottom: 2px solid black;
+    box-sizing: border-box;
 }
 
 .main-body {
-    border-radius: 10px;
-    border-color: black;
-    width: 100px;
-    height: 100px;
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center;
+    gap: 0; /* Removes extra spacing */
+    margin: 0; /* Ensure no extra space */
+    padding: 0; /* Ensure no padding */
+}
+
+.ops {
+    border-radius: 5px;
+    font-size: 50px;
+    height: 80px;
+    width: 80px;
+    margin: 0; /* Ensures buttons don’t have extra margin */
+    padding: 0;
 }
