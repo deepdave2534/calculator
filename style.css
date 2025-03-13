@@ -8,6 +8,17 @@ body {
     margin: 0;
 }
 
+.heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 60px;
+    color: navy;
+}
+
 .container {
     display: flex;
     flex-direction: column;
