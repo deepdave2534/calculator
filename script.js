@@ -29,17 +29,17 @@ const equalsButton = document.getElementById('equals');
 const clearButton = document.getElementById('clear');
 const decimalButton = document.getElementById('decimal');
 
-numberButtons.forEach(button => {
-    button.addEventListener('click', () => appendNumber(button.innerText));
-});
+function resetDisplay() {
+    display.innerText = '';
+    shouldResetDisplay = false;
+}
 
-Object.keys(operatorButtons).forEach(op => {
-    operatorButtons[op].addEventListener('click', () => setOperator(op));
-});
-
-equalsButton.addEventListener('click', evaluate);
-clearButton.addEventListener('click', clear);
-decimalButton.addEventListener('click', appendDecimal);
+function clear() {
+    display.innerText = '0';
+    firstOperand = '';
+    secondOperand = '';
+    currentOperator = null;
+}
 
 function appendNumber(number) {
     if (shouldResetDisplay) {
@@ -69,7 +69,7 @@ function setOperator(operator) {
 function evaluate() {
     if (currentOperator === null || shouldResetDisplay) return;
     if (currentOperator === 'divide' && display.innerText === '0') {
-        display.innerText = "Error";
+        display.innerText = "Invalid input";
         currentOperator = null;
         return;
     }
@@ -79,16 +79,37 @@ function evaluate() {
     currentOperator = null;
 }
 
+function add(n1, n2) {
+    return (n1 + n2);
+}
+
+function sub(n1, n2) {
+    return (n1 - n2);
+}
+
+function mul(n1, n2) {
+    return (n1 * n2);
+}
+
+function div(n1, n2) {
+    if(n2 != 0) {
+        return (n1 + n2);
+    }
+    else {
+        return 'Invalid number';
+    }
+}
+
 function operate(operator, a, b) {
     switch (operator) {
         case 'add':
-            return a + b;
+            return add(a, b);
         case 'subtract':
-            return a - b;
+            return sub(a, b);
         case 'multiply':
-            return a * b;
+            return mul(a, b);
         case 'divide':
-            return b !== 0 ? a / b : 'Error';
+            return div(a, b);
         default:
             return b;
     }
@@ -98,14 +119,14 @@ function roundResult(number) {
     return Math.round(number * 1000) / 1000;
 }
 
-function resetDisplay() {
-    display.innerText = '';
-    shouldResetDisplay = false;
-}
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => appendNumber(button.innerText));
+});
 
-function clear() {
-    display.innerText = '0';
-    firstOperand = '';
-    secondOperand = '';
-    currentOperator = null;
-}
+Object.keys(operatorButtons).forEach(op => {
+    operatorButtons[op].addEventListener('click', () => setOperator(op));
+});
+
+equalsButton.addEventListener('click', evaluate);
+clearButton.addEventListener('click', clear);
+decimalButton.addEventListener('click', appendDecimal);
