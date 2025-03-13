@@ -11,7 +11,7 @@ body {
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Aligns buttons to the right */
+    align-items: center;
     width: 300px;
     border: 2px solid black;
     background-color: white;
