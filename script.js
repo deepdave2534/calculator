@@ -1,3 +1,38 @@
+let firstOperand = '';
+let secondOperand = '';
+let currentOperator = null;
+let shouldResetDisplay = false;
+
+const display = document.getElementById('display');
+
+const numberButtons = [
+    document.getElementById('zero'),
+    document.getElementById('one'),
+    document.getElementById('two'),
+    document.getElementById('three'),
+    document.getElementById('four'),
+    document.getElementById('five'),
+    document.getElementById('six'),
+    document.getElementById('seven'),
+    document.getElementById('eight'),
+    document.getElementById('nine')
+];
+
+const operatorButtons = {
+    add: document.getElementById('add'),
+    subtract: document.getElementById('subtract'),
+    multiply: document.getElementById('multiply'),
+    divide: document.getElementById('divide')
+};
+
+const equalsButton = document.getElementById('equals');
+const clearButton = document.getElementById('clear');
+const decimalButton = document.getElementById('decimal');
+
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => appendNumber(button.innerText));
+});
+
 function add(n1, n2) {
     return (n1 + n2);
 }
